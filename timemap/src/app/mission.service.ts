@@ -6,12 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MissionService {
 
-  baseURL: string = "http://localhost/drg-timemap/timemap/src/app/api/";
-  // baseURL: string = "/api/";
+  // baseURL: string = "http://localhost/time-map-branch2/drg-timemap/timemap/src/app/api/";
+  baseURL: string = "/api/";
   constructor(private http:HttpClient) { }
 
   getAllMissions() {
     return this.http.get(this.baseURL + "getAllMissions.php");
+  }
+
+  getAllMutatorsForOneMission(Id: number) {
+    return this.http.get(this.baseURL + "getAllMutatorsForOneMission.php?id=" + Id);
   }
 
   getTypeFromTypeId(Id: number) {

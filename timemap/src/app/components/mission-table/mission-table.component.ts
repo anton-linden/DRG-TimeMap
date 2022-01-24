@@ -11,7 +11,7 @@ export class MissionTableComponent implements OnInit {
 
   showingAmount: number = 0;
   amountOfMissions: number = 0;
-  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, show: boolean}> = [];
+  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, show: boolean, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
   missionsTypes: Array<{type: string, imagePath: string}> = [];
 
   constructor(private missionService:MissionService, private locationService: LocationServiceService) {
@@ -29,6 +29,8 @@ export class MissionTableComponent implements OnInit {
         this.missionService.getTypeFromTypeId(+Object(data)[index].type).subscribe(data2=>{
           this.locationService.getLocationFromId(+Object(data)[index].location).subscribe(data3=>{
 
+            this.missionService.getAllMutatorsForOneMission(+Object(data)[index].id).subscribe(data4=>{
+
             if (!types.includes(+Object(data)[index].type)) {
               types.push(+Object(data)[index].type);
               this.missionsTypes.push({
@@ -37,6 +39,7 @@ export class MissionTableComponent implements OnInit {
               });
             }
 
+
             this.missions.push({
               id: +Object(data)[index].id,
               type: Object(data2)[0].name,
@@ -44,7 +47,16 @@ export class MissionTableComponent implements OnInit {
               location: Object(data3)[0].name,
               datetime: Object(data)[index].datetime,
               amount: +Object(data)[index].amount,
-              show: true
+              show: true,
+              mutators: Object(data4)
+            });
+
+            if (+Object(data)[index].id == 1) {
+              console.log(this.missions[index]);
+              console.log(data4);
+            }
+
+
             });
           })
         })
