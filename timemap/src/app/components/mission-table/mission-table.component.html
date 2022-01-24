@@ -1,0 +1,40 @@
+  <!-- <button type="button" name="button" class="btn btn-primary" *ngFor="let mission of missionsTypes" (click)="resortArray(mission.type)">{{mission.type}}</button> -->
+  <br>
+  <p>Total missions: {{showingAmount}}/{{amountOfMissions}}</p>
+
+    <div class="form-check form-check-inline" *ngFor="let mission of missionsTypes">
+      <input class="form-check-input" type="checkbox" id="{{mission.type}}" value="option1"(click)="hideMissionsWithType(mission.type)" checked>
+      <label class="form-check-label" for="{{mission.type}}">{{mission.type}}</label>
+    </div>
+
+<button type="button" name="button" class="btn btn-lg btn-primary" (click)="reload()">Refresh</button>
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th></th>
+      <th scope="col">Mission type</th>
+      <th scope="col">Location</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date Time</th>
+    </tr>
+    <!-- <tr>
+      <th [appSort]="missions" data-order="desc" data-name="missionType" scope="col">Mission type</th>
+      <th [appSort]="missions" data-order="desc" data-name="missionLocation" scope="col">Location</th>
+      <th [appSort]="missions" data-order="desc" data-name="missionAmount" scope="col">Amount</th>
+      <th [appSort]="missions" data-order="desc" data-name="missionDateTime" scope="col">Date Time</th>
+    </tr> -->
+  </thead>
+  <tbody>
+    <tr *ngFor="let mission of missions">
+      <!-- <th scope="row" *ngIf="mission.show">{{mission.id}}</th> -->
+      <th scope="row" *ngIf="mission.show"><img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="50" alt=""></th>
+      <td *ngIf="mission.show">{{mission.type}}</td>
+      <td *ngIf="mission.show">{{mission.location}}</td>
+      <td *ngIf="mission.amount > 0 && mission.show">{{mission.amount}}</td>
+      <td *ngIf="mission.amount <= 0 && mission.show">UNKOWN</td>
+      <td *ngIf="mission.show">{{mission.datetime}}</td>
+    </tr>
+  </tbody>
+</table>
