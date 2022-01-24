@@ -14,6 +14,10 @@ export class MissionService {
     return this.http.get(this.baseURL + "getAllMissions.php");
   }
 
+  getAllMissionTypes() {
+    return this.http.get(this.baseURL + "getAllMissionTypes.php");
+  }
+
   getTypeFromTypeId(Id: number) {
     return this.http.get(this.baseURL + "getTypeFromTypeId.php?typeID=" + Id);
   }
