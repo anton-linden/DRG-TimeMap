@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class LocationServiceService {
 
   baseURL: string = "http://localhost/drg-timemap/timemap/src/app/api/";
+  // baseURL: string = "/api/";
   constructor(private http:HttpClient) { }
 
   getAllLocations() {
