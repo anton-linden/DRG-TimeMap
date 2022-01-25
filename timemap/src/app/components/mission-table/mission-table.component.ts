@@ -28,39 +28,29 @@ export class MissionTableComponent implements OnInit {
       for (let index = 0; index < Object(data).length; index++) {
         this.missionService.getTypeFromTypeId(+Object(data)[index].type).subscribe(data2=>{
           this.locationService.getLocationFromId(+Object(data)[index].location).subscribe(data3=>{
-
             this.missionService.getAllMutatorsForOneMission(+Object(data)[index].id).subscribe(data4=>{
+              if (!types.includes(+Object(data)[index].type)) {
+                types.push(+Object(data)[index].type);
+                this.missionsTypes.push({
+                  type: Object(data2)[0].name,
+                  imagePath: Object(data2)[0].imagePath
+                });
+              }
 
-            if (!types.includes(+Object(data)[index].type)) {
-              types.push(+Object(data)[index].type);
-              this.missionsTypes.push({
+              this.missions.push({
+                id: +Object(data)[index].id,
                 type: Object(data2)[0].name,
-                imagePath: Object(data2)[0].imagePath
-              });
-            }
-
-
-            this.missions.push({
-              id: +Object(data)[index].id,
-              type: Object(data2)[0].name,
-              imagePath: Object(data2)[0].imagePath,
-              location: Object(data3)[0].name,
-              datetime: Object(data)[index].datetime,
-              amount: +Object(data)[index].amount,
-              length: Object(data)[index].length,
-              complexity: Object(data)[index].complexity,
-              show: true,
-              mutators: Object(data4)
+                imagePath: Object(data2)[0].imagePath,
+                location: Object(data3)[0].name,
+                datetime: Object(data)[index].datetime,
+                amount: +Object(data)[index].amount,
+                length: Object(data)[index].length,
+                complexity: Object(data)[index].complexity,
+                show: true,
+                mutators: Object(data4)
+              })
             });
-
-            if (+Object(data)[index].id == 1) {
-              console.log(this.missions[index]);
-              console.log(data4);
-            }
-
-
-            });
-          })
+          });
         })
       }
     });
