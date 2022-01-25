@@ -18,6 +18,8 @@
       <th scope="col">Location</th>
       <th scope="col">Amount</th>
       <th scope="col">Date Time</th>
+      <th scope="col">Complexity</th>
+      <th scope="col">Length</th>
       <th scope="col">Mutators</th>
     </tr>
     <!-- <tr>
@@ -36,6 +38,8 @@
       <td *ngIf="mission.amount > 0 && mission.show">{{mission.amount}}</td>
       <td *ngIf="mission.amount <= 0 && mission.show">UNKOWN</td>
       <td *ngIf="mission.show">{{mission.datetime}}</td>
+      <td *ngIf="mission.show"><img src="assets/img/Icons_complexity_{{mission.complexity}}.webp" alt=""></td>
+      <td *ngIf="mission.show"><img src="assets/img/Icons_length_{{mission.length}}.webp" alt=""></td>
       <td *ngIf="mission.show"><img src="assets/img/mutators/Mutator_triple_xp_icon.webp" height="30" alt=""><img *ngFor="let mutator of mission.mutators" src="assets/img/mutators/{{mutator.imagePath}}.webp" height="30" alt=""></td>
     </tr>
   </tbody>

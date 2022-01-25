@@ -11,7 +11,7 @@ export class MissionTableComponent implements OnInit {
 
   showingAmount: number = 0;
   amountOfMissions: number = 0;
-  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, show: boolean, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
+  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
   missionsTypes: Array<{type: string, imagePath: string}> = [];
 
   constructor(private missionService:MissionService, private locationService: LocationServiceService) {
@@ -47,6 +47,8 @@ export class MissionTableComponent implements OnInit {
               location: Object(data3)[0].name,
               datetime: Object(data)[index].datetime,
               amount: +Object(data)[index].amount,
+              length: Object(data)[index].length,
+              complexity: Object(data)[index].complexity,
               show: true,
               mutators: Object(data4)
             });

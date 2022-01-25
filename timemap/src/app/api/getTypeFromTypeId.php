@@ -1,13 +1,13 @@
 <?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
-// $servername = 'localhost';
-// $username = 'root';
-// $password = '';
-// $dbname = 'timemap';
 $servername = 'localhost';
-$username = 'adm';
-$password = 'myserverx';
+$username = 'root';
+$password = '';
 $dbname = 'timemap';
+// $servername = 'localhost';
+// $username = 'adm';
+// $password = 'myserverx';
+// $dbname = 'timemap';
 
 if (isset($_GET['typeID'])) {
     $typeID = $_GET['typeID'];

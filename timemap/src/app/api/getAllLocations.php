@@ -1,13 +1,13 @@
 <?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
-// $servername = 'localhost';
-// $username = 'root';
-// $password = '';
-// $dbname = 'timemap';
 $servername = 'localhost';
-$username = 'adm';
-$password = 'myserverx';
+$username = 'root';
+$password = '';
 $dbname = 'timemap';
+// $servername = 'localhost';
+// $username = 'adm';
+// $password = 'myserverx';
+// $dbname = 'timemap';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
