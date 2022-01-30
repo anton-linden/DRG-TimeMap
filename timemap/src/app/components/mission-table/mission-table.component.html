@@ -30,7 +30,7 @@
     </tr> -->
   </thead>
   <tbody>
-    <tr *ngFor="let mission of missions">
+    <tr *ngFor="let mission of missions" (click)=openDialog(mission.id)>
       <!-- <th scope="row" *ngIf="mission.show">{{mission.id}}</th> -->
       <th scope="row" *ngIf="mission.show"><img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="50" alt=""></th>
       <td *ngIf="mission.show">{{mission.type}}</td>

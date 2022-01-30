@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MissionService {
 
-  baseURL: string = "http://localhost/time-map-branch2/drg-timemap/timemap/src/app/api/";
+  // baseURL: string = "http://localhost/time-map-branch2/drg-timemap/timemap/src/app/api/";
+  baseURL: string = "http://localhost/drg-timemap/timemap/src/app/api/";
   // baseURL: string = "/api/";
   constructor(private http:HttpClient) { }
 
@@ -21,4 +22,9 @@ export class MissionService {
   getTypeFromTypeId(Id: number) {
     return this.http.get(this.baseURL + "getTypeFromTypeId.php?typeID=" + Id);
   }
+
+  getMissionFromID(Id: number) {
+    return this.http.get(this.baseURL + "getMissionFromID.php?id=" + Id);
+  }
+
 }
