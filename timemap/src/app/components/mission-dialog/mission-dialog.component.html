@@ -1,0 +1,49 @@
+<div *ngFor="let mission of missions" mat-dialog-content class="container">
+
+<div class="row">
+  <div class="col">
+    <h1 mat-dialog-title>{{mission.type}}</h1>
+    <img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="150" alt="">
+  </div>
+
+  <div class="col">
+    <table>
+      <tbody>
+        <tr>
+          <th scope="row">Mission type: </th>
+          <td>{{mission.type}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Location: </th>
+          <td>{{mission.location}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Amount: </th>
+          <td>{{mission.amount}}</td>
+        </tr>
+        <tr *ngIf="mission.complexity">
+          <th scope="row">Complexity: </th>
+            <td><img src="assets/img/Icons_complexity_{{mission.complexity}}.webp" alt=""></td>
+        </tr>
+        <tr *ngIf="mission.length">
+          <th scope="row">Length: </th>
+          <td><img src="assets/img/Icons_length_{{mission.length}}.webp" alt=""></td>
+        </tr>
+        <tr>
+          <th scope="row">Mutators: </th>
+          <td><img src="assets/img/mutators/Mutator_triple_xp_icon.webp" height="30" alt=""><img *ngFor="let mutator of mission.mutators" src="assets/img/mutators/{{mutator.imagePath}}.webp" height="30" alt=""></td>
+        </tr>
+        <tr>
+          <th scope="row">Datetime: </th>
+          <td>{{mission.datetime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close type="button" name="button" class="btn btn-danger btn-md">Close</button>
+</div>

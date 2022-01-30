@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MissionService } from 'src/app/mission.service';
 import { LocationServiceService } from 'src/app/location-service.service';
+
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MissionDialogComponent } from 'src/app/components/mission-dialog/mission-dialog.component';
 
 @Component({
   selector: 'app-mission-table',
@@ -14,7 +17,7 @@ export class MissionTableComponent implements OnInit {
   missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
   missionsTypes: Array<{type: string, imagePath: string}> = [];
 
-  constructor(private missionService:MissionService, private locationService: LocationServiceService) {
+  constructor(private missionService: MissionService, private locationService: LocationServiceService, private dialog: MatDialog) {
     this.getTableContent();
   }
 
@@ -79,13 +82,23 @@ export class MissionTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openDialog(id: number) {
+    console.log(id);
+    const dialogRef = this.dialog.open(MissionDialogComponent, {
+      // width: '250px',
+      data: {missionID: id}
+    });
+  }
 }
 
-// export interface IMission {
-//   missionID: number;
-//   missionImagePath: string;
-//   missionType: number;
-//   missionLocation: string;
-//   missionDateTime: string;
-//   missionAmount: string;
-// }
+
+// id: +Object(data)[index].id,
+// type: Object(data2)[0].name,
+// imagePath: Object(data2)[0].imagePath,
+// location: Object(data3)[0].name,
+// datetime: Object(data)[index].datetime,
+// amount: +Object(data)[index].amount,
+// length: Object(data)[index].length,
+// complexity: Object(data)[index].complexity,
+// show: true,
+// mutators: Object(data4)
