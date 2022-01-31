@@ -4,23 +4,24 @@ $servername = 'localhost';
 $username = 'root';
 $password = '';
 $dbname = 'timemap';
-
 // $servername = 'localhost';
 // $username = 'adm';
 // $password = 'myserverx';
 // $dbname = 'timemap';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-} else {
-    exit("WARNING, No mission id was given");
-}
+$data = json_decode(file_get_contents('php://input'), true);
+
+$vote = $data["vote"];
+$missionID = $data["missionID"];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
-$result = $conn->query("SELECT id, type, location, `datetime`, amount, length, complexity, rating FROM `mission` WHERE id=$id");
-echo json_encode($result -> fetch_all(MYSQLI_ASSOC));
+if ($conn->query("UPDATE mission SET rating = rating + $vote WHERE id='$missionID'") === TRUE) {
+  echo json_encode("Successful");
+} else {
+  echo json_encode("Failure");
+}
 
 $conn->close();
 ?>

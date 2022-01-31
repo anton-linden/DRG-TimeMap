@@ -37,8 +37,30 @@
           <th scope="row">Datetime: </th>
           <td>{{mission.datetime}}</td>
         </tr>
+        <tr>
+          <th scope="row">Rating: </th>
+          <td>{{mission.rating}}</td>
+        </tr>
       </tbody>
     </table>
+
+    <div class="mt-5 container" *ngIf="voteAllowed">
+      <div class="row">
+        <div class="col">
+          <button class="like btn btn-sm btn-success" (click)="castVote(true)">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true">Vote as Good</i>
+          </button>
+        </div>
+
+        <div class="col">
+          <button class="dislike btn btn-sm btn-danger" (click)="castVote(false)">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true">Vote as Bad</i>
+          </button>
+        </div>
+      </div>
+      <br>
+    </div>
+
   </div>
 
   </div>
