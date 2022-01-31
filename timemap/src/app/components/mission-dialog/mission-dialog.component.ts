@@ -11,15 +11,32 @@ import { LocationServiceService } from 'src/app/location-service.service';
 })
 export class MissionDialogComponent implements OnInit {
 
+  voteAllowed: boolean = true;
   totalHazardBonus: number = 0;
-  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
+  missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, rating: number, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private missionService: MissionService, private locationService: LocationServiceService) {
     this.getMissionDataFromID(data.missionID);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  castVote(Vote: boolean) {
+    this.voteAllowed = false;
+    let finalVote: number = 1;
+    if (!Vote) finalVote = -1;
+
+    this.missionService.castVoteOnMission(+Object(this.missions)[0].id, finalVote).subscribe(data=>{
+      this.setStorage();
+    });
+  }
+
+  setStorage() {
+    sessionStorage.setItem(Object(this.missions)[0].id, Object(this.missions)[0].id);
+  }
+
+  loadStorage() {
+    if (sessionStorage.getItem(Object(this.missions)[0].id)) this.voteAllowed = !this.voteAllowed
   }
 
   getMissionDataFromID(id: number) {
@@ -38,8 +55,11 @@ export class MissionDialogComponent implements OnInit {
               length: Object(data)[0].length,
               complexity: Object(data)[0].complexity,
               show: true,
+              rating: Object(data)[0].rating,
               mutators: Object(data4)
             })
+
+            this.loadStorage();
 
           });
         });

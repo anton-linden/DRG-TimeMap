@@ -27,4 +27,15 @@ export class MissionService {
     return this.http.get(this.baseURL + "getMissionFromID.php?id=" + Id);
   }
 
+  castVoteOnMission(Id: number, Vote: number) {
+    const headers = { 'content-type': 'application/json'}
+
+    const obj = {
+      missionID: Id,
+      vote: Vote
+    };
+
+    return this.http.post(this.baseURL + "castVoteOnMission.php", obj, {'headers':headers})
+  }
+
 }
