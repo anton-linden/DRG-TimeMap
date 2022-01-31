@@ -39,7 +39,9 @@
         </tr>
         <tr>
           <th scope="row">Rating: </th>
-          <td>{{mission.rating}}</td>
+          <td *ngIf="mission.rating > 0" style="color: green;">Good! ({{mission.rating}})</td>
+          <td *ngIf="mission.rating < 0" style="color: red;">Bad! ({{mission.rating}})</td>
+          <td *ngIf="mission.rating == 0">No votes</td>
         </tr>
       </tbody>
     </table>

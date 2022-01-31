@@ -21,6 +21,7 @@
       <th scope="col">Complexity</th>
       <th scope="col">Length</th>
       <th scope="col">Mutators</th>
+      <th>User rating</th>
     </tr>
     <!-- <tr>
       <th [appSort]="missions" data-order="desc" data-name="missionType" scope="col">Mission type</th>
@@ -41,6 +42,10 @@
       <td *ngIf="mission.show"><img *ngIf="mission.complexity > 0" src="assets/img/Icons_complexity_{{mission.complexity}}.webp" alt=""></td>
       <td *ngIf="mission.show"><img *ngIf="mission.length > 0" src="assets/img/Icons_length_{{mission.length}}.webp" alt=""></td>
       <td *ngIf="mission.show"><img src="assets/img/mutators/Mutator_triple_xp_icon.webp" height="30" alt=""><img *ngFor="let mutator of mission.mutators" src="assets/img/mutators/{{mutator.imagePath}}.webp" height="30" alt=""></td>
+      <td *ngIf="mission.show"  class="text-center">
+        <i *ngIf="mission.rating > 0" class="bi bi-emoji-laughing" style="font-size: 1.7rem; color: #00CC00;"></i>
+        <i *ngIf="mission.rating < 0" class="bi bi-emoji-angry" style="font-size: 1.7rem; color: red;"></i>
+      </td>
     </tr>
   </tbody>
 </table>
