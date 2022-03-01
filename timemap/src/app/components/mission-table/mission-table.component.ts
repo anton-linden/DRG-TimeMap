@@ -16,6 +16,8 @@ export class MissionTableComponent implements OnInit {
   amountOfMissions: number = 0;
   missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, rating: number, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
   missionsTypes: Array<{type: string, imagePath: string}> = [];
+  lastSort: string = "";
+  multiplier: number = 1;
 
   constructor(private missionService: MissionService, private locationService: LocationServiceService, private dialog: MatDialog) {
     this.getTableContent();
@@ -66,6 +68,45 @@ export class MissionTableComponent implements OnInit {
     this.getTableContent();
   }
 
+  sort(field: string) {
+    if (field == this.lastSort) {
+      // TODO: ASC/DESC
+      this.multiplier *= -1;
+    } else {
+      this.multiplier = 1;
+    }
+
+    this.lastSort = field;
+
+    if (field == "amount") {
+      this.missions.sort((a, b) => (a.amount > b.amount) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "location") {
+      this.missions.sort((a, b) => (a.location > b.location) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "type") {
+      this.missions.sort((a, b) => (a.type > b.type) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "complexity") {
+      this.missions.sort((a, b) => (a.complexity > b.complexity) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "length") {
+      this.missions.sort((a, b) => (a.length > b.length) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "rating") {
+      this.missions.sort((a, b) => (a.rating > b.rating) ? -1*this.multiplier : 1*this.multiplier);
+    }
+
+    if (field == "datetime") {
+      this.missions.sort((a, b) => (a.datetime > b.datetime) ? -1*this.multiplier : 1*this.multiplier);
+    }
+  }
+
   hideMissionsWithType(type: string) {
     for (let index = 0; index < this.missions.length; index++) {
       if (type == this.missions[index].type) {
@@ -80,8 +121,7 @@ export class MissionTableComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openDialog(id: number) {
     console.log(id);
