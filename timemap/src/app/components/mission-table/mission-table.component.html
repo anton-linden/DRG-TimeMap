@@ -12,29 +12,21 @@
 <table class="table table-hover table-dark">
   <thead>
     <tr>
-      <!-- <th scope="col">#</th> -->
       <th></th>
-      <th scope="col">Mission type</th>
-      <th scope="col">Location</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Date Time</th>
-      <th scope="col">Complexity</th>
-      <th scope="col">Length</th>
+      <th scope="col" (click)="sort('type')" style="cursor: pointer">Mission type</th>
+      <th scope="col" (click)="sort('location')" style="cursor: pointer">Location</th>
+      <th scope="col" (click)="sort('amount')" style="cursor: pointer">Amount</th>
+      <th scope="col" (click)="sort('datetime')" style="cursor: pointer">Date Time</th>
+      <th scope="col" (click)="sort('complexity')" style="cursor: pointer">Complexity</th>
+      <th scope="col" (click)="sort('length')" style="cursor: pointer">Length</th>
       <th scope="col">Mutators</th>
-      <th>User rating</th>
+      <th scope="col" (click)="sort('rating')" style="cursor: pointer">User rating</th>
     </tr>
-    <!-- <tr>
-      <th [appSort]="missions" data-order="desc" data-name="missionType" scope="col">Mission type</th>
-      <th [appSort]="missions" data-order="desc" data-name="missionLocation" scope="col">Location</th>
-      <th [appSort]="missions" data-order="desc" data-name="missionAmount" scope="col">Amount</th>
-      <th [appSort]="missions" data-order="desc" data-name="missionDateTime" scope="col">Date Time</th>
-    </tr> -->
   </thead>
   <tbody>
     <tr *ngFor="let mission of missions" (click)=openDialog(mission.id)>
-      <!-- <th scope="row" *ngIf="mission.show">{{mission.id}}</th> -->
       <th scope="row" *ngIf="mission.show"><img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="50" alt=""></th>
-      <td *ngIf="mission.show">{{mission.type}}</td>
+      <td *ngIf="mission.show">{{mission.type | uppercase}}</td>
       <td *ngIf="mission.show">{{mission.location}}</td>
       <td *ngIf="mission.amount > 0 && mission.show">{{mission.amount}}</td>
       <td *ngIf="mission.amount <= 0 && mission.show">UNKOWN</td>

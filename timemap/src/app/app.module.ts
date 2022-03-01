@@ -15,8 +15,7 @@ import { MissionDialogComponent } from './components/mission-dialog/mission-dial
     AppComponent,
     LocationListingComponent,
     MissionTableComponent,
-    MissionDialogComponent,
-    // SortDirective
+    MissionDialogComponent
   ],
   imports: [
     BrowserModule,
