@@ -15,12 +15,14 @@ export class MissionTableComponent implements OnInit {
   showingAmount: number = 0;
   amountOfMissions: number = 0;
   missions: Array<{id: number, imagePath: string, type: string, location: string, datetime: string, amount: number, length: number, complexity: number, show: boolean, rating: number, mutators: Array<{hazardBonus: number, imagePath: string, mutator: number, name: string}>}> = [];
-  missionsTypes: Array<{type: string, imagePath: string}> = [];
+  missionsTypes: Array<{type: string, imagePath: string, isChecked: boolean}> = [];
   lastSort: string = "";
   multiplier: number = 1;
 
   constructor(private missionService: MissionService, private locationService: LocationServiceService, private dialog: MatDialog) {
     this.getTableContent();
+    console.log(this.missionsTypes);
+
   }
 
   getTableContent() {
@@ -38,8 +40,11 @@ export class MissionTableComponent implements OnInit {
                 types.push(+Object(data)[index].type);
                 this.missionsTypes.push({
                   type: Object(data2)[0].name,
-                  imagePath: Object(data2)[0].imagePath
+                  imagePath: Object(data2)[0].imagePath,
+                  isChecked: true
                 });
+
+                this.missionsTypes.sort((a, b) => (a.type < b.type) ? -1 : 1);
               }
 
               this.missions.push({
@@ -54,12 +59,34 @@ export class MissionTableComponent implements OnInit {
                 show: true,
                 rating: +Object(data)[index].rating,
                 mutators: Object(data4)
-              })
+              });
+
+              this.missions.sort((a, b) => (a.type < b.type) ? -1 : 1);
             });
           });
         })
       }
     });
+  }
+
+  toggleType(event: any) {
+    for (let index = 0; index < this.missionsTypes.length; index++) {
+      if (event.target.value == this.missionsTypes[index].type) {
+        this.missionsTypes[index].isChecked = event.target.checked;
+      }
+    }
+  }
+
+  toggleSelectAllTypes(event: any) {
+    console.log(this.missionsTypes);
+    for (let index = 0; index < this.missionsTypes.length; index++) {
+      if (event.target.checked != this.missionsTypes[index].isChecked) {
+        console.log(this.missionsTypes[index].type, " ; ", event.target.checked, " != ", this.missionsTypes[index].isChecked);
+
+        this.missionsTypes[index].isChecked = !this.missionsTypes[index].isChecked;
+        this.hideMissionsWithType(this.missionsTypes[index].type);
+      }
+    }
   }
 
   reload() {

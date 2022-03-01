@@ -3,42 +3,57 @@
   <br>
   <p>Total missions: {{showingAmount}}/{{amountOfMissions}}</p>
 
-    <div class="form-check form-check-inline" *ngFor="let mission of missionsTypes">
-      <input class="form-check-input" type="checkbox" id="{{mission.type}}" value="option1"(click)="hideMissionsWithType(mission.type)" checked>
-      <label class="form-check-label" for="{{mission.type}}">{{mission.type}}</label>
+  <div class="form-check form-check-inline">
+
+    <div class="">
+
+      <div class="form-check form-check-inline container">
+          <input class="form-check-input" type="checkbox" id="all_types" value="all_types" (change)="toggleSelectAllTypes($event)" [value]="" checked>
+          <label class="form-check-label" for="all_types">Select all</label>
+
+      </div>
+
+      <br><br>
+
+      <div class="form-check form-check-inline" *ngFor="let mission of missionsTypes">
+        <input class="form-check-input" type="checkbox" id="{{mission.type}}" value="option1" (click)="hideMissionsWithType(mission.type)" (change)="toggleType($event)" [checked]="mission.isChecked" [value]="mission.type">
+        <label class="form-check-label" for="{{mission.type}}">{{mission.type}}</label>
+      </div>
     </div>
 
-<button type="button" name="button" class="btn btn-lg btn-primary" (click)="reload()">Refresh</button>
-<table class="table table-hover table-dark">
-  <thead>
-    <tr>
-      <th></th>
-      <th scope="col" (click)="sort('type')" style="cursor: pointer">Mission type</th>
-      <th scope="col" (click)="sort('location')" style="cursor: pointer">Location</th>
-      <th scope="col" (click)="sort('amount')" style="cursor: pointer">Amount</th>
-      <th scope="col" (click)="sort('datetime')" style="cursor: pointer">Date Time</th>
-      <th scope="col" (click)="sort('complexity')" style="cursor: pointer">Complexity</th>
-      <th scope="col" (click)="sort('length')" style="cursor: pointer">Length</th>
-      <th scope="col">Mutators</th>
-      <th scope="col" (click)="sort('rating')" style="cursor: pointer">User rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let mission of missions" (click)=openDialog(mission.id)>
-      <th scope="row" *ngIf="mission.show"><img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="50" alt=""></th>
-      <td *ngIf="mission.show">{{mission.type | uppercase}}</td>
-      <td *ngIf="mission.show">{{mission.location}}</td>
-      <td *ngIf="mission.amount > 0 && mission.show">{{mission.amount}}</td>
-      <td *ngIf="mission.amount <= 0 && mission.show">UNKOWN</td>
-      <td *ngIf="mission.show">{{mission.datetime}}</td>
-      <td *ngIf="mission.show"><img *ngIf="mission.complexity > 0" src="assets/img/Icons_complexity_{{mission.complexity}}.webp" alt=""></td>
-      <td *ngIf="mission.show"><img *ngIf="mission.length > 0" src="assets/img/Icons_length_{{mission.length}}.webp" alt=""></td>
-      <td *ngIf="mission.show"><img src="assets/img/mutators/Mutator_triple_xp_icon.webp" height="30" alt=""><img *ngFor="let mutator of mission.mutators" src="assets/img/mutators/{{mutator.imagePath}}.webp" height="30" alt=""></td>
-      <td *ngIf="mission.show"  class="text-center">
-        <i *ngIf="mission.rating > 0" class="bi bi-emoji-laughing" style="font-size: 1.7rem; color: #00CC00;"></i>
-        <i *ngIf="mission.rating < 0" class="bi bi-emoji-angry" style="font-size: 1.7rem; color: red;"></i>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <br>
+
+    <table class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col" (click)="sort('type')" style="cursor: pointer">Mission type</th>
+          <th scope="col" (click)="sort('location')" style="cursor: pointer">Location</th>
+          <th scope="col" (click)="sort('amount')" style="cursor: pointer">Amount</th>
+          <th scope="col" (click)="sort('datetime')" style="cursor: pointer">Date Time</th>
+          <th scope="col" (click)="sort('complexity')" style="cursor: pointer">Complexity</th>
+          <th scope="col" (click)="sort('length')" style="cursor: pointer">Length</th>
+          <th scope="col">Mutators</th>
+          <th scope="col" (click)="sort('rating')" style="cursor: pointer">User rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mission of missions" (click)=openDialog(mission.id) style="cursor: pointer">
+          <th scope="row" *ngIf="mission.show"><img src="assets/img/missionIcons/{{mission.imagePath}}.webp" height="50" alt=""></th>
+          <td *ngIf="mission.show">{{mission.type | uppercase}}</td>
+          <td *ngIf="mission.show">{{mission.location}}</td>
+          <td *ngIf="mission.amount > 0 && mission.show">{{mission.amount}}</td>
+          <td *ngIf="mission.amount <= 0 && mission.show">UNKOWN</td>
+          <td *ngIf="mission.show">{{mission.datetime}}</td>
+          <td *ngIf="mission.show"><img *ngIf="mission.complexity > 0" src="assets/img/Icons_complexity_{{mission.complexity}}.webp" alt=""></td>
+          <td *ngIf="mission.show"><img *ngIf="mission.length > 0" src="assets/img/Icons_length_{{mission.length}}.webp" alt=""></td>
+          <td *ngIf="mission.show"><img src="assets/img/mutators/Mutator_triple_xp_icon.webp" height="30" alt=""><img *ngFor="let mutator of mission.mutators" src="assets/img/mutators/{{mutator.imagePath}}.webp" height="30" alt=""></td>
+          <td *ngIf="mission.show"  class="text-center">
+            <i *ngIf="mission.rating > 0" class="bi bi-emoji-laughing" style="font-size: 1.7rem; color: #00CC00;"></i>
+            <i *ngIf="mission.rating < 0" class="bi bi-emoji-angry" style="font-size: 1.7rem; color: red;"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -9,5 +9,5 @@ import { Observable, throwError } from 'rxjs';
 })
 export class AppComponent {
   title = 'timemap';
-  version = 'Build: L-V002';
+  version = 'Build: L-V003';
 }
